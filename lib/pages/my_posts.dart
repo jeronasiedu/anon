@@ -8,7 +8,11 @@ class MyPosts extends StatelessWidget {
     return const Scaffold(
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
-        slivers: [SliverAppBar()],
+        slivers: [
+          SliverAppBar(
+            title: Text("My Posts"),
+          ),
+        ],
       ),
     );
   }

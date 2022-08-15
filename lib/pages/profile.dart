@@ -4,6 +4,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:kcapp/pages/my_bookmarks.dart';
 import 'package:kcapp/pages/my_posts.dart';
 import 'package:kcapp/pages/my_replies.dart';
+import 'package:kcapp/pages/my_upvotes.dart';
 import 'package:kcapp/widgets/promo_card.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -25,7 +26,7 @@ class ProfilePage extends StatelessWidget {
       "title": "My UpVotes",
       "subTitle": "Check which comments were helpful",
       "icon": Ionicons.thumbs_up_outline,
-      "screen": const MyReplies(),
+      "screen": const MyUpvotes(),
     },
     {
       "title": "My Bookmarks",
@@ -68,7 +69,14 @@ class ProfilePage extends StatelessWidget {
                         trailing: Icon(
                           listItems[index]["icon"],
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => listItems[index]["screen"],
+                            ),
+                          );
+                        },
                       ),
                       const Divider(
                         height: 0,

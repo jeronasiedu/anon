@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kcapp/pages/create_post.dart';
+import 'package:kcapp/utils/colors.dart';
 import 'package:kcapp/utils/post_examples.dart';
 import 'package:kcapp/widgets/post.dart';
 import 'package:lottie/lottie.dart';
@@ -7,7 +8,7 @@ import 'package:lottie/lottie.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
   Future<void> handleRefresh() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 5));
   }
 
   @override
@@ -19,6 +20,8 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: RefreshIndicator(
+        triggerMode: RefreshIndicatorTriggerMode.anywhere,
+        color: AppColors.blue,
         onRefresh: handleRefresh,
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
