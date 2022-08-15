@@ -124,44 +124,68 @@ class _PostDetailsState extends State<PostDetails> {
           ],
         ),
       ),
-      bottomSheet: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TextFormField(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          controller: _commentController,
-          textInputAction: TextInputAction.send,
-          keyboardType: TextInputType.multiline,
-          maxLines: 8,
-          minLines: 1,
-          style: const TextStyle(
-            fontSize: 17,
+      bottomSheet: CommentForm(commentController: _commentController),
+    );
+  }
+}
+
+class CommentForm extends StatelessWidget {
+  const CommentForm({
+    Key? key,
+    required TextEditingController commentController,
+  })  : _commentController = commentController,
+        super(key: key);
+
+  final TextEditingController _commentController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        // autovalidateMode: AutovalidateMode.onUserInteraction,
+        controller: _commentController,
+        textInputAction: TextInputAction.send,
+        keyboardType: TextInputType.multiline,
+        maxLines: 8,
+        minLines: 1,
+        style: const TextStyle(
+          fontSize: 17,
+        ),
+        validator: (text) {
+          if (text == null || text.isEmpty) {
+            return 'Why do you want to post an empty comment?';
+          }
+          return null;
+        },
+        onFieldSubmitted: ((value) {
+          if (_commentController.text.isNotEmpty) {
+            print(_commentController.text);
+            _commentController.clear();
+          }
+        }),
+        decoration: InputDecoration(
+          suffixIcon: IconButton(
+            onPressed: () {
+              if (_commentController.text.isNotEmpty) {
+                print(_commentController.text);
+                _commentController.clear();
+              } else {
+                ScaffoldMessenger.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(
+                    const SnackBar(
+                      content:
+                          Text('Why do you want to post an empty comment?'),
+                    ),
+                  );
+              }
+            },
+            icon: const Icon(Ionicons.rocket),
           ),
-          validator: (text) {
-            if (text == null || text.isEmpty) {
-              return 'Why do you want to post an empty comment?';
-            }
-            return null;
-          },
-          onFieldSubmitted: ((value) {
-            if (_commentController.text.isNotEmpty) {
-              print(_commentController.text);
-              _commentController.clear();
-            }
-          }),
-          decoration: InputDecoration(
-            suffixIcon: IconButton(
-              onPressed: () {
-                if (_commentController.text.isNotEmpty) {
-                  print(_commentController.text);
-                  _commentController.clear();
-                }
-              },
-              icon: const Icon(Ionicons.rocket),
-            ),
-            contentPadding: const EdgeInsets.all(12),
-            hintText: "Don't be shy, share your comment!",
-            border: const UnderlineInputBorder(),
-          ),
+          contentPadding: const EdgeInsets.all(12),
+          hintText: "Don't be shy, share your comment!",
+          border: const UnderlineInputBorder(),
         ),
       ),
     );

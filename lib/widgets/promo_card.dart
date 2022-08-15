@@ -8,7 +8,7 @@ class PromoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var accent = appColors.orange;
+    var accent = appColors.blue;
     return Container(
       width: double.maxFinite,
       clipBehavior: Clip.antiAlias,
