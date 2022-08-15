@@ -1,6 +1,6 @@
 import 'package:flutter/painting.dart';
 
-class appColors {
+class AppColors {
   static const orange = Color(0xFFFF9908);
   static const yellow = Color(0xFFFFBA00);
   static const red = Color(0xffe84c4c);

@@ -20,9 +20,9 @@ class _RootAppState extends State<RootApp> {
     ProfilePage(),
   ];
   List indicatorColors = [
-    appColors.orange,
-    appColors.turquoise,
-    appColors.blue,
+    AppColors.orange,
+    AppColors.turquoise,
+    AppColors.blue,
   ];
   @override
   Widget build(BuildContext context) {

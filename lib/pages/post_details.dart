@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:kcapp/utils/comments_examples.dart';
 
 class PostDetails extends StatefulWidget {
   const PostDetails({
@@ -47,7 +47,7 @@ class _PostDetailsState extends State<PostDetails> {
             onPressed: () {},
             splashRadius: 22,
             icon: const Icon(
-              FeatherIcons.mapPin,
+              Ionicons.bookmark_outline,
             ),
           ),
         ],
@@ -57,70 +57,118 @@ class _PostDetailsState extends State<PostDetails> {
         child: ListView(
           padding: const EdgeInsets.all(15),
           children: [
-            Container(
-              width: double.maxFinite,
-              padding: const EdgeInsets.all(5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    time,
-                    style: TextStyle(
-                      color: Colors.grey[200],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(right: 5),
+                      child: Icon(
+                        Ionicons.diamond_outline,
+                        size: 15,
+                        color: Colors.white60,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Text(
-                      text,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+                    Text(
+                      time,
+                      style: TextStyle(
+                        color: Colors.grey[200],
                       ),
-                      maxLines: 6,
                     ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
+                    text,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                    maxLines: 6,
                   ),
-                  Row(
-                    children: [
-                      IconButton(
-                        color: Colors.white,
-                        onPressed: () {},
-                        icon: const Icon(
-                          Ionicons.chatbox_ellipses_outline,
-                        ),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      color: Colors.white,
+                      onPressed: () {},
+                      icon: const Icon(
+                        Ionicons.chatbox_ellipses_outline,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 0),
-                        child: Text(
-                          comments,
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        color: Colors.white,
-                        onPressed: () {},
-                        icon: const Icon(
-                          Ionicons.heart_outline,
-                        ),
-                      ),
-                      Text(
-                        likes,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 0),
+                      child: Text(
+                        comments,
                         style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      color: Colors.white,
+                      onPressed: () {},
+                      icon: const Icon(
+                        Ionicons.heart_outline,
+                      ),
+                    ),
+                    Text(
+                      likes,
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
             const Divider(
               color: Colors.white,
               thickness: 1.8,
             ),
+            Column(
+              children: List.generate(commentsExamples.length, (index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(right: 5),
+                            child: Icon(
+                              Ionicons.glasses_outline,
+                              color: Colors.white60,
+                            ),
+                          ),
+                          Text(
+                            commentsExamples[index]['time'],
+                            style: TextStyle(
+                              color: Colors.grey[200],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Text(
+                          commentsExamples[index]['text'],
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                          maxLines: 6,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+            )
           ],
         ),
       ),
@@ -160,7 +208,6 @@ class CommentForm extends StatelessWidget {
         },
         onFieldSubmitted: ((value) {
           if (_commentController.text.isNotEmpty) {
-            print(_commentController.text);
             _commentController.clear();
           }
         }),
@@ -168,7 +215,6 @@ class CommentForm extends StatelessWidget {
           suffixIcon: IconButton(
             onPressed: () {
               if (_commentController.text.isNotEmpty) {
-                print(_commentController.text);
                 _commentController.clear();
               } else {
                 ScaffoldMessenger.of(context)

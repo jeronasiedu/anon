@@ -1,31 +1,37 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:kcapp/pages/my_bookmarks.dart';
+import 'package:kcapp/pages/my_posts.dart';
+import 'package:kcapp/pages/my_replies.dart';
 import 'package:kcapp/widgets/promo_card.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
-  List listItems = [
+  final List listItems = [
     {
       "title": "My Posts",
       "subTitle": "View all your posts",
-      "icon": Ionicons.help,
+      "icon": Ionicons.chatbubbles_outline,
+      "screen": const MyPosts(),
     },
     {
       "title": "My Replies",
       "subTitle": "Check what your friends are saying",
       "icon": Ionicons.repeat,
+      "screen": const MyReplies(),
     },
     {
       "title": "My UpVotes",
       "subTitle": "Check which comments were helpful",
-      "icon": Ionicons.happy,
+      "icon": Ionicons.thumbs_up_outline,
+      "screen": const MyReplies(),
     },
     {
-      "title": "My Pins",
-      "subTitle": "View your pinned posts",
-      "icon": FeatherIcons.mapPin,
+      "title": "My Bookmarks",
+      "subTitle": "View your saved posts",
+      "icon": Ionicons.bookmark_outline,
+      "screen": const MyBookmarks(),
     },
   ];
   @override

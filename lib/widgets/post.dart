@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_3.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kcapp/pages/post_details.dart';
 
@@ -64,9 +63,10 @@ class Post extends StatelessWidget {
                   text,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 17,
                   ),
                   maxLines: 6,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Row(
@@ -103,7 +103,7 @@ class Post extends StatelessWidget {
                     onPressed: () {},
                     splashRadius: 22,
                     icon: const Icon(
-                      FeatherIcons.mapPin,
+                      Ionicons.bookmark_outline,
                       color: Colors.white,
                     ),
                   ),

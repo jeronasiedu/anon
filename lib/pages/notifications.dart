@@ -21,6 +21,7 @@ class NotificationsPage extends StatelessWidget {
           return SingleNotification(
             time: notifications[index]['time'],
             type: notifications[index]['type'],
+            post: notifications[index]['post'],
           );
         },
         separatorBuilder: (context, index) => const Divider(

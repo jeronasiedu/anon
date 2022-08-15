@@ -8,41 +8,44 @@ class SingleNotification extends StatelessWidget {
   const SingleNotification({
     Key? key,
     required this.time,
+    required this.post,
     required this.type,
   }) : super(key: key);
 
   final String time;
-  final notificationsType type;
-  final notificationsType like = notificationsType.like;
-  final notificationsType comment = notificationsType.comment;
+  final String post;
+  final NotificationType type;
+  final NotificationType like = NotificationType.like;
+  final NotificationType comment = NotificationType.comment;
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: RichText(
         text: TextSpan(
-          text: "An",
+          text: "A",
           style: DefaultTextStyle.of(context).style.copyWith(
                 fontSize: 16,
               ),
           children: [
-            const TextSpan(
-              text: " Anon",
-              style: TextStyle(
+            TextSpan(
+              text: type == like ? " like" : " comment",
+              style: const TextStyle(
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const TextSpan(
-              text: " user",
-            ),
-            TextSpan(
-              text:
-                  type == like ? " liked your post" : " commented on your post",
+              text: " on your post",
             ),
           ],
         ),
       ),
-      subtitle: Text(time),
+      subtitle: Text(
+        post,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
+      trailing: Text(time),
       onTap: () {},
       leading: type == like
           ? const Icon(
@@ -51,7 +54,7 @@ class SingleNotification extends StatelessWidget {
           : const Icon(
               Ionicons.chatbox,
             ),
-      iconColor: type == like ? appColors.red : appColors.turquoise,
+      iconColor: type == like ? AppColors.red : AppColors.turquoise,
     );
   }
 }
