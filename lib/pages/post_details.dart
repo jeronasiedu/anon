@@ -23,6 +23,13 @@ class PostDetails extends StatefulWidget {
 }
 
 class _PostDetailsState extends State<PostDetails> {
+  final _commentController = TextEditingController();
+  @override
+  void dispose() {
+    _commentController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final String text = widget.text;
@@ -68,7 +75,7 @@ class _PostDetailsState extends State<PostDetails> {
                       text,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 18,
                       ),
                       maxLines: 6,
                     ),
@@ -99,16 +106,12 @@ class _PostDetailsState extends State<PostDetails> {
                           Ionicons.heart_outline,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Text(
-                          likes,
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
+                      Text(
+                        likes,
+                        style: const TextStyle(
+                          color: Colors.white,
                         ),
                       ),
-                      const Spacer(),
                     ],
                   ),
                 ],
@@ -121,19 +124,43 @@ class _PostDetailsState extends State<PostDetails> {
           ],
         ),
       ),
-      bottomSheet: TextFormField(
-        textInputAction: TextInputAction.send,
-        keyboardType: TextInputType.multiline,
-        maxLines: 8,
-        minLines: 1,
-        decoration: InputDecoration(
-          suffixIcon: IconButton(
-            onPressed: () {},
-            icon: const Icon(Ionicons.rocket),
+      bottomSheet: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: _commentController,
+          textInputAction: TextInputAction.send,
+          keyboardType: TextInputType.multiline,
+          maxLines: 8,
+          minLines: 1,
+          style: const TextStyle(
+            fontSize: 17,
           ),
-          hintText: "Don't be shy, share your story",
-          border: const OutlineInputBorder(
-            borderSide: BorderSide.none,
+          validator: (text) {
+            if (text == null || text.isEmpty) {
+              return 'Why do you want to post an empty comment?';
+            }
+            return null;
+          },
+          onFieldSubmitted: ((value) {
+            if (_commentController.text.isNotEmpty) {
+              print(_commentController.text);
+              _commentController.clear();
+            }
+          }),
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+              onPressed: () {
+                if (_commentController.text.isNotEmpty) {
+                  print(_commentController.text);
+                  _commentController.clear();
+                }
+              },
+              icon: const Icon(Ionicons.rocket),
+            ),
+            contentPadding: const EdgeInsets.all(12),
+            hintText: "Don't be shy, share your comment!",
+            border: const UnderlineInputBorder(),
           ),
         ),
       ),

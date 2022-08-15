@@ -31,11 +31,12 @@ class Post extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: ((context) => PostDetails(
-                comments: comments,
-                text: text,
-                likes: likes,
-                time: time,
-                color: color)),
+                  comments: comments,
+                  text: text,
+                  likes: likes,
+                  time: time,
+                  color: color,
+                )),
           ),
         );
       },

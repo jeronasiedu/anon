@@ -21,7 +21,9 @@ class SingleNotification extends StatelessWidget {
       title: RichText(
         text: TextSpan(
           text: "An",
-          style: DefaultTextStyle.of(context).style,
+          style: DefaultTextStyle.of(context).style.copyWith(
+                fontSize: 16,
+              ),
           children: [
             const TextSpan(
               text: " Anon",

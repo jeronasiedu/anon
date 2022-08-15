@@ -41,7 +41,7 @@ class ProfilePage extends StatelessWidget {
                 vertical: 12,
               ),
               child: Text(
-                "MY CONSILIUM",
+                "MY A N O NA",
                 style: Theme.of(context).textTheme.subtitle1,
               ),
             ),
