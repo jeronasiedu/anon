@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kcapp/pages/my_bookmarks.dart';
 import 'package:kcapp/pages/my_posts.dart';
-import 'package:kcapp/pages/my_replies.dart';
-import 'package:kcapp/pages/my_upvotes.dart';
 import 'package:kcapp/widgets/promo_card.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -15,18 +13,6 @@ class ProfilePage extends StatelessWidget {
       "subTitle": "View all your posts",
       "icon": Ionicons.chatbubbles_outline,
       "screen": const MyPosts(),
-    },
-    {
-      "title": "My Replies",
-      "subTitle": "Check what your friends are saying",
-      "icon": Ionicons.repeat,
-      "screen": const MyReplies(),
-    },
-    {
-      "title": "My UpVotes",
-      "subTitle": "Check which comments were helpful",
-      "icon": Ionicons.thumbs_up_outline,
-      "screen": const MyUpvotes(),
     },
     {
       "title": "My Bookmarks",

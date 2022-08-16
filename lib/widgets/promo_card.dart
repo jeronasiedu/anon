@@ -25,7 +25,7 @@ class PromoCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "A N O N",
+                  "D I L O",
                   style: Theme.of(context).textTheme.headline4!.copyWith(
                         color: Colors.white,
                         letterSpacing: 3,
@@ -59,7 +59,7 @@ class PromoCard extends StatelessWidget {
                 top: 5,
               ),
               child: Text(
-                "Enjoy 3 colored post every week and unlock many more KC Plus Powers!",
+                "Enjoy 3 colored post every week and unlock many more DILO Plus Powers!",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "679995926331",
+    "project_id": "dilo-d5086",
+    "storage_bucket": "dilo-d5086.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679995926331:android:085d85b0c7387ac567b91e",
+        "android_client_info": {
+          "package_name": "com.example.kcapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679995926331-68r4fj0h17lum0splkfcqectlsqduilq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHDGL2vzWx3chOiv_dLgSM-rVEr1LTUqE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679995926331-68r4fj0h17lum0splkfcqectlsqduilq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_3.dart';
+import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kcapp/pages/post_details.dart';
 import 'package:kcapp/utils/colors.dart';
 
-class Post extends StatelessWidget {
-  const Post({
+class MyPostWidget extends StatelessWidget {
+  const MyPostWidget({
     Key? key,
     required this.text,
     required this.likes,
@@ -39,7 +39,7 @@ class Post extends StatelessWidget {
       child: ChatBubble(
         backGroundColor: AppColors.cardBg,
         margin: const EdgeInsets.only(bottom: 10),
-        clipper: ChatBubbleClipper3(
+        clipper: ChatBubbleClipper4(
           type: BubbleType.sendBubble,
         ),
         child: Container(

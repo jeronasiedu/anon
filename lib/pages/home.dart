@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'A N O N',
+          'D I L O',
         ),
       ),
       body: RefreshIndicator(
@@ -33,7 +33,6 @@ class HomePage extends StatelessWidget {
               likes: posts[index]['likes'],
               text: posts[index]['text'],
               time: posts[index]['time'],
-              color: posts[index]['color'],
             );
           },
         ),
@@ -43,14 +42,14 @@ class HomePage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const CreatePost(),
+              builder: (context) => CreatePost(),
             ),
           );
         },
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         child: Lottie.asset(
-          'assets/chat_lottie.json',
-          width: 45,
+          'assets/pen.json',
+          width: 40,
         ),
       ),
     );

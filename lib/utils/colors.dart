@@ -1,4 +1,4 @@
-import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
 
 class AppColors {
   static const orange = Color(0xFFFF9908);
@@ -8,5 +8,6 @@ class AppColors {
   static const blue = Color(0xFF338DF5);
   static const green = Color(0xFF009D52);
   static const purple = Color(0xFFA867E9);
-  static const pink = Color(0xFFE35BB5);
+  static const accent = Color(0xFF26235B);
+  static const cardBg = Colors.white;
 }
