@@ -35,7 +35,6 @@ class CreatePost extends StatelessWidget {
               child: ElevatedButton.icon(
                 onPressed: () {
                   if (createPostController.text.isNotEmpty) {
-                    print(createPostController.text);
                     createPostController.clear();
                   } else {
                     ScaffoldMessenger.of(context)

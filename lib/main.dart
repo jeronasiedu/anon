@@ -1,7 +1,10 @@
+// ignore: depend_on_referenced_packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kcapp/root_app.dart';
+import 'package:kcapp/auth/auth_wrapper.dart';
+import 'package:kcapp/auth/google_auth.dart';
+import 'package:provider/provider.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,18 +23,21 @@ class _MyAppState extends State<MyApp> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'KC APP',
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-        useMaterial3: true,
-        textTheme: GoogleFonts.deliusTextTheme(
-          Theme.of(context).textTheme,
+    return ChangeNotifierProvider(
+      create: (context) => GoogleAuthenticationProvider(),
+      child: MaterialApp(
+        title: 'KC APP',
+        theme: ThemeData(
+          primarySwatch: Colors.orange,
+          useMaterial3: true,
+          textTheme: GoogleFonts.deliusTextTheme(
+            Theme.of(context).textTheme,
+          ),
+          scaffoldBackgroundColor: const Color(0xFFF6F6FD),
         ),
-        scaffoldBackgroundColor: const Color.fromARGB(255, 246, 246, 253),
+        debugShowCheckedModeBanner: false,
+        home: const AuthWrapper(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const RootApp(),
     );
   }
 }

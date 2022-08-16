@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
             ),
           );
         },
-        // backgroundColor: Colors.white,
+        heroTag: 'f2',
         child: Lottie.asset(
           'assets/pen.json',
           width: 40,

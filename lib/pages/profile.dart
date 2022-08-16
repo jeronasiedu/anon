@@ -1,9 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:kcapp/auth/google_auth.dart';
 import 'package:kcapp/pages/my_bookmarks.dart';
 import 'package:kcapp/pages/my_posts.dart';
+import 'package:kcapp/utils/colors.dart';
 import 'package:kcapp/widgets/promo_card.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -24,6 +28,29 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          final provider = Provider.of<GoogleAuthenticationProvider>(
+            context,
+            listen: false,
+          );
+          provider.googleLogout();
+        },
+        label: const Text(
+          "Logout",
+          style: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        icon: Lottie.asset(
+          'assets/arrow.json',
+          width: 40,
+        ),
+        heroTag: 'f1',
+        foregroundColor: Colors.white,
+        backgroundColor: AppColors.blue,
+      ),
       body: SafeArea(
         child: ListView(
           physics: const BouncingScrollPhysics(),
