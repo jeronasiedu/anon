@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   var doc = snapshot.data!.docs[index];
+
                   var data = doc.data() as Map;
                   DateTime time = data['time'].toDate();
                   return Post(
@@ -50,6 +51,7 @@ class _HomePageState extends State<HomePage> {
                     likes: data['likes'].length.toString(),
                     text: data['text'],
                     time: time,
+                    id: doc.id,
                   );
                 },
               ),
@@ -68,7 +70,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CreatePost(),
+              builder: (context) => const CreatePost(),
             ),
           );
         },
