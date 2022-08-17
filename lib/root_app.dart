@@ -29,7 +29,6 @@ class _RootAppState extends State<RootApp> {
     return Scaffold(
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
-          backgroundColor: Colors.grey[200],
           elevation: 40,
           indicatorColor: indicatorColors[currentIndex],
           iconTheme: MaterialStateProperty.all(

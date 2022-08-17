@@ -15,12 +15,14 @@ class MyBookmarkWidget extends StatelessWidget {
     required this.likes,
     required this.comments,
     required this.time,
+    required this.id,
   }) : super(key: key);
 
   final String text;
   final String likes;
   final List comments;
   final DateTime time;
+  final String id;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -33,6 +35,7 @@ class MyBookmarkWidget extends StatelessWidget {
                   text: text,
                   likes: likes,
                   time: time,
+                  id: id,
                 )),
           ),
         );

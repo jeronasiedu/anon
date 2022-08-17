@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kcapp/utils/colors.dart';
@@ -11,11 +12,13 @@ class PostDetails extends StatefulWidget {
     required this.time,
     required this.likes,
     required this.comments,
+    required this.id,
   }) : super(key: key);
   final String text;
   final DateTime time;
   final String likes;
   final List comments;
+  final String id;
 
   @override
   State<PostDetails> createState() => _PostDetailsState();
@@ -23,6 +26,33 @@ class PostDetails extends StatefulWidget {
 
 class _PostDetailsState extends State<PostDetails> {
   final _commentController = TextEditingController();
+  Future<void> postComment(String text) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Comment posted'),
+      ),
+    );
+    try {
+      await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(widget.id)
+          .update({
+        'comments': FieldValue.arrayUnion([
+          {
+            'text': text,
+            'time': Timestamp.now().toDate(),
+          }
+        ])
+      });
+    } on FirebaseException {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error posting comment'),
+        ),
+      );
+    }
+  }
+
   @override
   void dispose() {
     _commentController.dispose();
@@ -35,6 +65,9 @@ class _PostDetailsState extends State<PostDetails> {
     final DateTime time = widget.time;
     final String likes = widget.likes;
     final List comments = widget.comments;
+    final commentReference =
+        FirebaseFirestore.instance.collection('posts').doc(widget.id);
+    print(commentReference);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -164,66 +197,50 @@ class _PostDetailsState extends State<PostDetails> {
           )
         ],
       ),
-      bottomSheet: CommentForm(commentController: _commentController),
-    );
-  }
-}
-
-class CommentForm extends StatelessWidget {
-  const CommentForm({
-    Key? key,
-    required TextEditingController commentController,
-  })  : _commentController = commentController,
-        super(key: key);
-
-  final TextEditingController _commentController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        // autovalidateMode: AutovalidateMode.onUserInteraction,
-        controller: _commentController,
-        textInputAction: TextInputAction.send,
-        keyboardType: TextInputType.multiline,
-        maxLines: 8,
-        minLines: 1,
-        style: const TextStyle(
-          fontSize: 17,
-        ),
-        validator: (text) {
-          if (text == null || text.isEmpty) {
-            return 'Why do you want to post an empty comment?';
-          }
-          return null;
-        },
-        onFieldSubmitted: ((value) {
-          if (_commentController.text.isNotEmpty) {
-            _commentController.clear();
-          }
-        }),
-        decoration: InputDecoration(
-          suffixIcon: IconButton(
-            onPressed: () {
-              if (_commentController.text.isNotEmpty) {
-                _commentController.clear();
-              } else {
-                ScaffoldMessenger.of(context)
-                  ..removeCurrentSnackBar()
-                  ..showSnackBar(
-                    const SnackBar(
-                      content:
-                          Text('Why do you want to post an empty comment?'),
-                    ),
-                  );
-              }
-            },
-            icon: const Icon(Ionicons.rocket),
+      bottomSheet: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextFormField(
+          controller: _commentController,
+          textInputAction: TextInputAction.send,
+          keyboardType: TextInputType.multiline,
+          maxLines: 5,
+          minLines: 1,
+          style: const TextStyle(
+            fontSize: 17,
           ),
-          contentPadding: const EdgeInsets.all(12),
-          hintText: "Don't be shy, share your comment!",
-          border: const UnderlineInputBorder(),
+          validator: (text) {
+            if (text == null || text.isEmpty) {
+              return 'Why do you want to post an empty comment?';
+            }
+            return null;
+          },
+          onFieldSubmitted: ((value) {
+            if (_commentController.text.isNotEmpty) {
+              postComment(_commentController.text);
+            }
+          }),
+          decoration: InputDecoration(
+            suffixIcon: IconButton(
+              onPressed: () {
+                if (_commentController.text.isNotEmpty) {
+                  postComment(_commentController.text);
+                } else {
+                  ScaffoldMessenger.of(context)
+                    ..removeCurrentSnackBar()
+                    ..showSnackBar(
+                      const SnackBar(
+                        content:
+                            Text('Why do you want to post an empty comment?'),
+                      ),
+                    );
+                }
+              },
+              icon: const Icon(Ionicons.rocket),
+            ),
+            contentPadding: const EdgeInsets.all(12),
+            hintText: "Don't be shy, share your comment!",
+            border: const UnderlineInputBorder(),
+          ),
         ),
       ),
     );

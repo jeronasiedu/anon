@@ -15,16 +15,21 @@ class Post extends StatelessWidget {
     required this.likes,
     required this.comments,
     required this.time,
+    required this.id,
   }) : super(key: key);
 
   final String text;
   final String likes;
   final List comments;
   final DateTime time;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      splashFactory: NoSplash.splashFactory,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         Navigator.push(
           context,
@@ -34,6 +39,7 @@ class Post extends StatelessWidget {
                   text: text,
                   likes: likes,
                   time: time,
+                  id: id,
                 )),
           ),
         );

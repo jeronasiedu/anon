@@ -18,16 +18,24 @@ class _CreatePostState extends State<CreatePost> {
     setState(() {
       _isLoading = true;
     });
-    final postsRef = FirebaseFirestore.instance.collection('posts');
-    final postData = post.toMap();
-    await postsRef.add(postData).whenComplete(() {
-      createPostController.clear();
-      Navigator.pop(context);
-      setState(() {
-        _isLoading = false;
+    try {
+      final postsRef = FirebaseFirestore.instance.collection('posts');
+      final postData = post.toMap();
+      await postsRef.add(postData).whenComplete(() {
+        createPostController.clear();
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.pop(context);
+        return;
       });
-      return;
-    });
+    } on FirebaseException {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error creating post'),
+        ),
+      );
+    }
   }
 
   @override
@@ -51,10 +59,13 @@ class _CreatePostState extends State<CreatePost> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: TextField(
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
                   autofocus: true,
                   controller: createPostController,
                   keyboardType: TextInputType.multiline,
-                  maxLines: 15,
+                  maxLines: 10,
                   maxLength: 80,
                   decoration: const InputDecoration.collapsed(
                     hintText:
@@ -68,7 +79,9 @@ class _CreatePostState extends State<CreatePost> {
               child: ElevatedButton.icon(
                 onPressed: () {
                   if (createPostController.text.isNotEmpty) {
-                    final post = PostModel(text: createPostController.text);
+                    final post = PostModel(
+                      text: createPostController.text.trim(),
+                    );
                     createPost(post, context);
                   } else {
                     ScaffoldMessenger.of(context)
