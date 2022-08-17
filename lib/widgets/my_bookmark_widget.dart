@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_1.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kcapp/pages/post_details.dart';
 import 'package:kcapp/utils/colors.dart';
@@ -18,8 +19,8 @@ class MyBookmarkWidget extends StatelessWidget {
 
   final String text;
   final String likes;
-  final String comments;
-  final String time;
+  final List comments;
+  final DateTime time;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -49,7 +50,7 @@ class MyBookmarkWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                time,
+                DateFormat('h:mm a').format(time),
                 style: const TextStyle(
                   color: AppColors.accent,
                 ),
@@ -75,7 +76,7 @@ class MyBookmarkWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    comments,
+                    comments.length.toString(),
                     style: const TextStyle(
                       color: AppColors.accent,
                     ),

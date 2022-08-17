@@ -6,6 +6,7 @@ import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_3.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kcapp/pages/post_details.dart';
 import 'package:kcapp/utils/colors.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class Post extends StatelessWidget {
   const Post({
@@ -18,8 +19,9 @@ class Post extends StatelessWidget {
 
   final String text;
   final String likes;
-  final String comments;
-  final String time;
+  final List comments;
+  final DateTime time;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -49,7 +51,7 @@ class Post extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                time,
+                timeago.format(time),
                 style: const TextStyle(
                   color: AppColors.accent,
                 ),
@@ -75,7 +77,7 @@ class Post extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    comments,
+                    comments.length.toString(),
                     style: const TextStyle(
                       color: AppColors.accent,
                     ),

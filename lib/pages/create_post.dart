@@ -1,9 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:kcapp/database/models/post_model.dart';
+import 'package:lottie/lottie.dart';
 
-class CreatePost extends StatelessWidget {
-  CreatePost({Key? key}) : super(key: key);
+class CreatePost extends StatefulWidget {
+  const CreatePost({Key? key}) : super(key: key);
+
+  @override
+  State<CreatePost> createState() => _CreatePostState();
+}
+
+class _CreatePostState extends State<CreatePost> {
   final createPostController = TextEditingController();
+  bool _isLoading = false;
+  Future createPost(PostModel post, context) async {
+    setState(() {
+      _isLoading = true;
+    });
+    final postsRef = FirebaseFirestore.instance.collection('posts');
+    final postData = post.toMap();
+    await postsRef.add(postData).whenComplete(() {
+      createPostController.clear();
+      Navigator.pop(context);
+      setState(() {
+        _isLoading = false;
+      });
+      return;
+    });
+  }
+
+  @override
+  void dispose() {
+    createPostController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +51,7 @@ class CreatePost extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: TextField(
+                  autofocus: true,
                   controller: createPostController,
                   keyboardType: TextInputType.multiline,
                   maxLines: 15,
@@ -35,7 +68,8 @@ class CreatePost extends StatelessWidget {
               child: ElevatedButton.icon(
                 onPressed: () {
                   if (createPostController.text.isNotEmpty) {
-                    createPostController.clear();
+                    final post = PostModel(text: createPostController.text);
+                    createPost(post, context);
                   } else {
                     ScaffoldMessenger.of(context)
                       ..removeCurrentSnackBar()
@@ -47,8 +81,13 @@ class CreatePost extends StatelessWidget {
                       );
                   }
                 },
-                label: const Text("Send"),
-                icon: const Icon(Ionicons.mail_outline),
+                label: Text(_isLoading ? 'Creating...' : 'Send'),
+                icon: _isLoading
+                    ? Lottie.asset(
+                        'assets/loading.json',
+                        width: 28,
+                      )
+                    : const Icon(Ionicons.mail_outline),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(
                     12,

@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
           textTheme: GoogleFonts.deliusTextTheme(
             Theme.of(context).textTheme,
           ),
-          scaffoldBackgroundColor: const Color(0xFFF6F6FD),
+          scaffoldBackgroundColor: const Color(0xFFFBFBFF),
         ),
         debugShowCheckedModeBanner: false,
         home: const AuthWrapper(),

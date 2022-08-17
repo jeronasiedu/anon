@@ -1,15 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kcapp/pages/create_post.dart';
 import 'package:kcapp/utils/colors.dart';
-import 'package:kcapp/utils/post_examples.dart';
 import 'package:kcapp/widgets/post.dart';
 import 'package:lottie/lottie.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   Future<void> handleRefresh() async {
     await Future.delayed(const Duration(seconds: 5));
   }
+
+  final postReference = FirebaseFirestore.instance
+      .collection('posts')
+      .orderBy('time', descending: true);
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +29,39 @@ class HomePage extends StatelessWidget {
           'D I L O',
         ),
       ),
-      body: RefreshIndicator(
-        triggerMode: RefreshIndicatorTriggerMode.anywhere,
-        color: AppColors.blue,
-        onRefresh: handleRefresh,
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(12),
-          itemCount: posts.length,
-          itemBuilder: (context, index) {
-            return Post(
-              comments: posts[index]['comments'],
-              likes: posts[index]['likes'],
-              text: posts[index]['text'],
-              time: posts[index]['time'],
+      body: StreamBuilder(
+        stream: postReference.snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasData) {
+            return RefreshIndicator(
+              triggerMode: RefreshIndicatorTriggerMode.anywhere,
+              color: AppColors.blue,
+              onRefresh: handleRefresh,
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.all(12),
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  var doc = snapshot.data!.docs[index];
+                  var data = doc.data() as Map;
+                  DateTime time = data['time'].toDate();
+                  return Post(
+                    comments: data['comments'],
+                    likes: data['likes'].length.toString(),
+                    text: data['text'],
+                    time: time,
+                  );
+                },
+              ),
             );
-          },
-        ),
+          }
+          return Center(
+            child: Lottie.asset(
+              'assets/loading.json',
+              width: 200,
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

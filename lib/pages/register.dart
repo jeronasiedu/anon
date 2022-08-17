@@ -52,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     text: " Dilo",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      backgroundColor: AppColors.orange,
+                      backgroundColor: AppColors.red,
                       color: Colors.white,
                     ),
                   ),
@@ -63,11 +63,6 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ),
             const Spacer(),
-            const AuthButton(),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 12),
-              child: Text("Already have an account?"),
-            ),
             const AuthButton(),
           ],
         ),

@@ -8,11 +8,11 @@ class GoogleAuthenticationProvider extends ChangeNotifier {
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
   Future googleLogin() async {
-    final googleUser = await googleSignIn.signIn();
-    if (googleUser == null) {
-      return;
-    }
     try {
+      final googleUser = await googleSignIn.signIn();
+      if (googleUser == null) {
+        return null;
+      }
       _user = googleUser;
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -20,14 +20,21 @@ class GoogleAuthenticationProvider extends ChangeNotifier {
         idToken: googleAuth.idToken,
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
-    } on FirebaseAuthException {
-      print("Something went wrong");
+    } on FirebaseAuthException catch (e) {
+      debugPrint(e.message);
+      debugPrint("Something went wrong");
+      return null;
+    } catch (e) {
+      debugPrint("something went wrong");
+      return null;
     }
 
     notifyListeners();
   }
 
   Future googleLogout() async {
+    await googleSignIn.disconnect();
     FirebaseAuth.instance.signOut();
+    notifyListeners();
   }
 }

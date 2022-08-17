@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kcapp/utils/colors.dart';
-import 'package:kcapp/utils/comments_examples.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class PostDetails extends StatefulWidget {
   const PostDetails({
@@ -13,9 +13,9 @@ class PostDetails extends StatefulWidget {
     required this.comments,
   }) : super(key: key);
   final String text;
-  final String time;
+  final DateTime time;
   final String likes;
-  final String comments;
+  final List comments;
 
   @override
   State<PostDetails> createState() => _PostDetailsState();
@@ -32,9 +32,9 @@ class _PostDetailsState extends State<PostDetails> {
   @override
   Widget build(BuildContext context) {
     final String text = widget.text;
-    final String time = widget.time;
+    final DateTime time = widget.time;
     final String likes = widget.likes;
-    final String comments = widget.comments;
+    final List comments = widget.comments;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -67,7 +67,7 @@ class _PostDetailsState extends State<PostDetails> {
                     ),
                   ),
                   Text(
-                    time,
+                    timeago.format(time),
                     style: const TextStyle(
                       color: AppColors.accent,
                     ),
@@ -79,7 +79,6 @@ class _PostDetailsState extends State<PostDetails> {
                 child: Text(
                   text,
                   style: const TextStyle(
-                    // color: Colors.white,
                     fontSize: 18,
                   ),
                   maxLines: 6,
@@ -95,7 +94,7 @@ class _PostDetailsState extends State<PostDetails> {
                     ),
                   ),
                   Text(
-                    comments,
+                    comments.length.toString(),
                     style: const TextStyle(
                       color: AppColors.accent,
                     ),
@@ -123,7 +122,9 @@ class _PostDetailsState extends State<PostDetails> {
             thickness: 1.8,
           ),
           Column(
-            children: List.generate(commentsExamples.length, (index) {
+            children: List.generate(comments.length, (index) {
+              final comment = comments[index];
+              final commentTime = comment["time"].toDate();
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Column(
@@ -139,7 +140,7 @@ class _PostDetailsState extends State<PostDetails> {
                           ),
                         ),
                         Text(
-                          commentsExamples[index]['time'],
+                          timeago.format(commentTime),
                           style: const TextStyle(
                             color: AppColors.accent,
                           ),
@@ -149,7 +150,7 @@ class _PostDetailsState extends State<PostDetails> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Text(
-                        commentsExamples[index]['text'],
+                        comment['text'],
                         style: const TextStyle(
                           fontSize: 18,
                         ),
