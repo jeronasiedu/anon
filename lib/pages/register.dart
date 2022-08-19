@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kcapp/utils/colors.dart';
-import 'package:kcapp/widgets/auth_button.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -11,6 +10,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,7 @@ class _RegisterPageState extends State<RegisterPage> {
         title: const Text('D I L O'),
         centerTitle: true,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.only(
           top: 15,
           left: 15,
@@ -45,7 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
-                text: "Say it, your friends are waiting.",
+                text: "Say it, your friends are listening.",
                 style: Theme.of(context).textTheme.headline6!.copyWith(),
                 children: const [
                   TextSpan(
@@ -57,13 +57,82 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   TextSpan(
-                    text: ' is a new way to share your thoughts and ideas.',
+                    text: ' is a new way to share your thoughts and emotions.',
                   )
                 ],
               ),
             ),
-            const Spacer(),
-            const AuthButton(),
+            const SizedBox(
+              height: 20,
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your Student ID';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Enter your studentID',
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 8.0,
+                        horizontal: 12,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Enter your Password',
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 8.0,
+                        horizontal: 12,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        // If the form is valid, display a snackbar. In the real world,
+                        // you'd often call a server or save the information in a database.
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Processing Data')),
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(
+                        MediaQuery.of(context).size.width * 0.9,
+                        40,
+                      ),
+                    ),
+                    child: const Text('Log In'),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
