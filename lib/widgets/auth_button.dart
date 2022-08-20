@@ -24,7 +24,7 @@ class AuthButton extends StatelessWidget {
           provider.googleLogin();
         },
         label: const Text(
-          "Register with Google",
+          "Contiune with Google",
         ),
         icon: const Icon(
           Ionicons.logo_google,

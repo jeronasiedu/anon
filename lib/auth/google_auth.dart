@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -23,6 +24,9 @@ class GoogleAuthenticationProvider extends ChangeNotifier {
     } on FirebaseAuthException catch (e) {
       debugPrint(e.message);
       debugPrint("Something went wrong");
+      return null;
+    } on PlatformException {
+      debugPrint("something went wrong");
       return null;
     } catch (e) {
       debugPrint("something went wrong");

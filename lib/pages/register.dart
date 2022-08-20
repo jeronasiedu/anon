@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kcapp/utils/colors.dart';
+import 'package:kcapp/widgets/auth_button.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -10,7 +11,18 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  // String? studentId = '';
+  // String? password = '';
+
+  // Future<void> loginStudent() async {
+  //   final usersCollection = FirebaseFirestore.instance.collection('users');
+  //   final results = usersCollection
+  //       .where('studentId', isEqualTo: "$studentId")
+  //       .limit(1)
+  //       .get();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,74 +77,87 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(
               height: 20,
             ),
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your Student ID';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Enter your studentID',
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 8.0,
-                        horizontal: 12,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Enter your Password',
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 8.0,
-                        horizontal: 12,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processing Data')),
-                        );
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(
-                        MediaQuery.of(context).size.width * 0.9,
-                        40,
-                      ),
-                    ),
-                    child: const Text('Log In'),
-                  ),
-                ],
-              ),
-            ),
+            // Form(
+            //   key: _formKey,
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: <Widget>[
+            //       TextFormField(
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty) {
+            //             return 'Please enter your Student ID';
+            //           }
+            //           return null;
+            //         },
+            //         onSaved: (value) {
+            //           studentId = value;
+            //         },
+            //         maxLength: 8,
+            //         keyboardType: TextInputType.number,
+            //         decoration: InputDecoration(
+            //           hintText: 'Enter your studentID',
+            //           contentPadding: const EdgeInsets.symmetric(
+            //             vertical: 8.0,
+            //             horizontal: 12,
+            //           ),
+            //           border: OutlineInputBorder(
+            //             borderRadius: BorderRadius.circular(50),
+            //           ),
+            //         ),
+            //       ),
+            //       const SizedBox(
+            //         height: 15,
+            //       ),
+            //       TextFormField(
+            //         validator: (value) {
+            //           if (value == null || value.isEmpty) {
+            //             return 'Please enter your password';
+            //           }
+            //           return null;
+            //         },
+            //         onSaved: (value) {
+            //           password = value;
+            //         },
+            //         decoration: InputDecoration(
+            //           hintText: 'Enter your Password',
+            //           contentPadding: const EdgeInsets.symmetric(
+            //             vertical: 8.0,
+            //             horizontal: 12,
+            //           ),
+            //           border: OutlineInputBorder(
+            //             borderRadius: BorderRadius.circular(50),
+            //           ),
+            //         ),
+            //       ),
+            //       const SizedBox(
+            //         height: 20,
+            //       ),
+            //       ElevatedButton(
+            //         onPressed: () {
+            //           if (_formKey.currentState!.validate()) {
+            //             _formKey.currentState!.save();
+            //             _formKey.currentState!.reset();
+
+            //             ScaffoldMessenger.of(context).showSnackBar(
+            //               const SnackBar(
+            //                 content: Text('Processing Data'),
+            //               ),
+            //             );
+            //           }
+            //           loginStudent();
+            //         },
+            //         style: ElevatedButton.styleFrom(
+            //           minimumSize: Size(
+            //             MediaQuery.of(context).size.width * 0.9,
+            //             40,
+            //           ),
+            //         ),
+            //         child: const Text('Log In'),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            const AuthButton(),
           ],
         ),
       ),
