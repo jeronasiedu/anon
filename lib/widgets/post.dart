@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
@@ -9,7 +11,7 @@ import 'package:kcapp/utils/colors.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class Post extends StatelessWidget {
-  const Post({
+  Post({
     Key? key,
     required this.text,
     required this.likes,
@@ -23,6 +25,24 @@ class Post extends StatelessWidget {
   final List comments;
   final DateTime time;
   final String id;
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+  Future<void> likePost(
+    BuildContext context,
+  ) async {
+    try {
+      await FirebaseFirestore.instance.collection('posts').doc(id).update(
+        {
+          'likes': FieldValue.arrayUnion([userId])
+        },
+      );
+    } on FirebaseException {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error liking post'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,45 +93,57 @@ class Post extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Row(
-                children: [
-                  IconButton(
+              Theme(
+                data: Theme.of(context).copyWith(
+                  iconTheme: const IconThemeData(
                     color: AppColors.accent,
-                    onPressed: () {},
-                    icon: const Icon(
-                      Ionicons.chatbox_ellipses_outline,
-                    ),
                   ),
-                  Text(
-                    comments.length.toString(),
-                    style: const TextStyle(
-                      color: AppColors.accent,
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Ionicons.chatbox_ellipses_outline,
+                      ),
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                     ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    color: AppColors.accent,
-                    onPressed: () {},
-                    icon: const Icon(
-                      Ionicons.heart_outline,
+                    Text(
+                      comments.length.toString(),
+                      style: const TextStyle(
+                        color: AppColors.accent,
+                      ),
                     ),
-                  ),
-                  Text(
-                    likes,
-                    style: const TextStyle(
-                      color: AppColors.accent,
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () {
+                        likePost(context);
+                      },
+                      icon: const Icon(
+                        Ionicons.heart_outline,
+                      ),
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
                     ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    color: AppColors.accent,
-                    onPressed: () {},
-                    splashRadius: 22,
-                    icon: const Icon(
-                      Ionicons.bookmark_outline,
+                    Text(
+                      likes,
+                      style: const TextStyle(
+                        color: AppColors.accent,
+                      ),
                     ),
-                  ),
-                ],
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () {},
+                      splashRadius: 22,
+                      icon: const Icon(
+                        Ionicons.bookmark_outline,
+                      ),
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

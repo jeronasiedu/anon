@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
       "title": "My Posts",
       "subTitle": "View all your posts",
       "icon": Ionicons.chatbubbles_outline,
-      "screen": const MyPosts(),
+      "screen": MyPosts(),
     },
     {
       "title": "My Bookmarks",

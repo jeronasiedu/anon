@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kcapp/utils/colors.dart';
+import 'package:lottie/lottie.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class PostDetails extends StatefulWidget {
@@ -26,24 +27,24 @@ class PostDetails extends StatefulWidget {
 
 class _PostDetailsState extends State<PostDetails> {
   final _commentController = TextEditingController();
-  Future<void> postComment(String text) async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Comment posted'),
-      ),
-    );
+  Future<void> postComment(
+    String text,
+  ) async {
     try {
       await FirebaseFirestore.instance
           .collection('posts')
           .doc(widget.id)
-          .update({
-        'comments': FieldValue.arrayUnion([
-          {
-            'text': text,
-            'time': Timestamp.now().toDate(),
-          }
-        ])
-      });
+          .update(
+        {
+          'comments': FieldValue.arrayUnion([
+            {
+              'text': text,
+              'time': Timestamp.now().toDate(),
+            }
+          ])
+        },
+      );
+      _commentController.clear();
     } on FirebaseException {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -65,9 +66,11 @@ class _PostDetailsState extends State<PostDetails> {
     final DateTime time = widget.time;
     final String likes = widget.likes;
     final List comments = widget.comments;
-    final commentReference =
-        FirebaseFirestore.instance.collection('posts').doc(widget.id);
-    print(commentReference);
+    final commentReference = FirebaseFirestore.instance
+        .collection('posts')
+        .doc(widget.id)
+        .snapshots();
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -84,6 +87,7 @@ class _PostDetailsState extends State<PostDetails> {
         ],
       ),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(15),
         children: [
           Column(
@@ -151,50 +155,73 @@ class _PostDetailsState extends State<PostDetails> {
             ],
           ),
           const Divider(
-            // color: Colors.white,
             thickness: 1.8,
           ),
-          Column(
-            children: List.generate(comments.length, (index) {
-              final comment = comments[index];
-              final commentTime = comment["time"].toDate();
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(right: 5),
-                          child: Icon(
-                            Ionicons.glasses_outline,
-                            color: AppColors.accent,
+          StreamBuilder(
+            stream: commentReference,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasError) {
+                const Center(
+                  child: Text('There was an erro fetching comments'),
+                );
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: Lottie.asset(
+                    'assets/loading.json',
+                    width: 100,
+                  ),
+                );
+              }
+              return Column(
+                children: List.generate(
+                  snapshot.data.data()['comments'].length,
+                  (index) {
+                    final comment = snapshot.data
+                        .data()['comments']
+                        .reversed
+                        .toList()[index];
+                    DateTime time = comment['time'].toDate();
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(right: 5),
+                                child: Icon(
+                                  Ionicons.glasses_outline,
+                                  color: AppColors.accent,
+                                ),
+                              ),
+                              Text(
+                                timeago.format(time),
+                                style: const TextStyle(
+                                  color: AppColors.accent,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        Text(
-                          timeago.format(commentTime),
-                          style: const TextStyle(
-                            color: AppColors.accent,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Text(
+                              comment['text'],
+                              style: const TextStyle(
+                                fontSize: 18,
+                              ),
+                              maxLines: 6,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: Text(
-                        comment['text'],
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
-                        maxLines: 6,
+                        ],
                       ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               );
-            }),
-          )
+            },
+          ),
         ],
       ),
       bottomSheet: Padding(
@@ -217,6 +244,7 @@ class _PostDetailsState extends State<PostDetails> {
           onFieldSubmitted: ((value) {
             if (_commentController.text.isNotEmpty) {
               postComment(_commentController.text);
+              FocusScope.of(context).unfocus();
             }
           }),
           decoration: InputDecoration(
@@ -224,6 +252,7 @@ class _PostDetailsState extends State<PostDetails> {
               onPressed: () {
                 if (_commentController.text.isNotEmpty) {
                   postComment(_commentController.text);
+                  FocusScope.of(context).unfocus();
                 } else {
                   ScaffoldMessenger.of(context)
                     ..removeCurrentSnackBar()
