@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                   DateTime time = data['time'].toDate();
                   return Post(
                     comments: data['comments'],
-                    likes: data['likes'].length.toString(),
+                    likes: data['likes'],
                     text: data['text'],
                     time: time,
                     id: doc.id,

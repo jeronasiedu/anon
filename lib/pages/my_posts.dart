@@ -33,7 +33,6 @@ class _MyPostsState extends State<MyPosts> {
 
   @override
   Widget build(BuildContext context) {
-    print(authorId);
     return Scaffold(
       appBar: AppBar(
         title: const Text("My posts"),
@@ -52,7 +51,7 @@ class _MyPostsState extends State<MyPosts> {
                 DateTime time = data['time'].toDate();
                 return MyPostWidget(
                   comments: data['comments'],
-                  likes: data['likes'].length.toString(),
+                  likes: data['likes'],
                   text: data['text'],
                   time: time,
                   id: doc.id,

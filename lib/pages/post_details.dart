@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kcapp/utils/colors.dart';
@@ -17,7 +18,7 @@ class PostDetails extends StatefulWidget {
   }) : super(key: key);
   final String text;
   final DateTime time;
-  final String likes;
+  final List likes;
   final List comments;
   final String id;
 
@@ -27,6 +28,28 @@ class PostDetails extends StatefulWidget {
 
 class _PostDetailsState extends State<PostDetails> {
   final _commentController = TextEditingController();
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+  Future<void> likePost(
+    BuildContext context,
+  ) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(widget.id)
+          .update(
+        {
+          'likes': FieldValue.arrayUnion([userId])
+        },
+      );
+    } on FirebaseException {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error liking post'),
+        ),
+      );
+    }
+  }
+
   Future<void> postComment(
     String text,
   ) async {
@@ -64,7 +87,7 @@ class _PostDetailsState extends State<PostDetails> {
   Widget build(BuildContext context) {
     final String text = widget.text;
     final DateTime time = widget.time;
-    final String likes = widget.likes;
+    final List likes = widget.likes;
     final List comments = widget.comments;
     final commentReference = FirebaseFirestore.instance
         .collection('posts')
@@ -123,29 +146,28 @@ class _PostDetailsState extends State<PostDetails> {
               ),
               Row(
                 children: [
-                  IconButton(
-                    color: AppColors.accent,
-                    onPressed: () {},
-                    icon: const Icon(
-                      Ionicons.chatbox_ellipses_outline,
-                    ),
-                  ),
-                  Text(
-                    comments.length.toString(),
-                    style: const TextStyle(
-                      color: AppColors.accent,
+                  const Icon(Ionicons.chatbox_ellipses_outline),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(
+                      comments.length.toString(),
+                      style: const TextStyle(
+                        color: AppColors.accent,
+                      ),
                     ),
                   ),
                   const Spacer(),
                   IconButton(
                     color: AppColors.accent,
-                    onPressed: () {},
+                    onPressed: () {
+                      likePost(context);
+                    },
                     icon: const Icon(
                       Ionicons.heart_outline,
                     ),
                   ),
                   Text(
-                    likes,
+                    likes.length.toString(),
                     style: const TextStyle(
                       color: AppColors.accent,
                     ),

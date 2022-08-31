@@ -19,7 +19,7 @@ class MyBookmarkWidget extends StatelessWidget {
   }) : super(key: key);
 
   final String text;
-  final String likes;
+  final List likes;
   final List comments;
   final DateTime time;
   final String id;
@@ -93,7 +93,7 @@ class MyBookmarkWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    likes,
+                    likes.length.toString(),
                     style: const TextStyle(
                       color: AppColors.accent,
                     ),

@@ -21,7 +21,7 @@ class Post extends StatelessWidget {
   }) : super(key: key);
 
   final String text;
-  final String likes;
+  final List likes;
   final List comments;
   final DateTime time;
   final String id;
@@ -120,14 +120,17 @@ class Post extends StatelessWidget {
                       onPressed: () {
                         likePost(context);
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Ionicons.heart_outline,
+                        color: likes.contains(userId)
+                            ? AppColors.red
+                            : AppColors.accent,
                       ),
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                     ),
                     Text(
-                      likes,
+                      likes.length.toString(),
                       style: const TextStyle(
                         color: AppColors.accent,
                       ),
