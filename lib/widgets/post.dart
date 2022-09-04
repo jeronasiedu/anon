@@ -120,12 +120,15 @@ class Post extends StatelessWidget {
                       onPressed: () {
                         likePost(context);
                       },
-                      icon: Icon(
-                        Ionicons.heart_outline,
-                        color: likes.contains(userId)
-                            ? AppColors.red
-                            : AppColors.accent,
-                      ),
+                      icon: likes.contains(userId)
+                          ? const Icon(
+                              Ionicons.heart_outline,
+                              color: AppColors.accent,
+                            )
+                          : const Icon(
+                              Ionicons.heart,
+                              color: AppColors.red,
+                            ),
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                     ),
