@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_4.dart';
-import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class MyPostWidget extends StatelessWidget {
   const MyPostWidget({
@@ -53,7 +53,7 @@ class MyPostWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                DateFormat('h:mm a').format(time),
+                timeago.format(time),
                 style: const TextStyle(
                   color: AppColors.accent,
                 ),
