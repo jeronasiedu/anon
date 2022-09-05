@@ -1,7 +1,7 @@
+import 'package:dilo/pages/register.dart';
+import 'package:dilo/root_app.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:kcapp/pages/register.dart';
-import 'package:kcapp/root_app.dart';
 
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({Key? key}) : super(key: key);
