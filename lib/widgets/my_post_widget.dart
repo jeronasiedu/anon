@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dilo/pages/post_details.dart';
 import 'package:dilo/utils/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
@@ -9,7 +11,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class MyPostWidget extends StatelessWidget {
-  const MyPostWidget({
+  MyPostWidget({
     Key? key,
     required this.text,
     required this.likes,
@@ -23,9 +25,49 @@ class MyPostWidget extends StatelessWidget {
   final List comments;
   final DateTime time;
   final String id;
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+  Future<void> likePost(
+    BuildContext context,
+  ) async {
+    try {
+      await FirebaseFirestore.instance.collection('posts').doc(id).update(
+        {
+          'likes': FieldValue.arrayUnion([userId])
+        },
+      );
+    } on FirebaseException {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error liking post'),
+        ),
+      );
+    }
+  }
+
+  Future<void> deletePost(BuildContext context) async {
+    try {
+      await FirebaseFirestore.instance.collection('posts').doc(id).delete();
+    } on FirebaseException {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error deleting post'),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error deleting post'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      splashFactory: NoSplash.splashFactory,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onTap: () {
         Navigator.push(
           context,
@@ -86,11 +128,20 @@ class MyPostWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   IconButton(
-                    color: AppColors.accent,
-                    onPressed: () {},
-                    icon: const Icon(
-                      Ionicons.heart_outline,
-                    ),
+                    onPressed: () {
+                      likePost(context);
+                    },
+                    icon: likes.contains(userId)
+                        ? const Icon(
+                            Ionicons.heart,
+                            color: AppColors.yellow,
+                          )
+                        : const Icon(
+                            Ionicons.heart_outline,
+                            color: AppColors.accent,
+                          ),
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                   ),
                   Text(
                     likes.length.toString(),
@@ -101,10 +152,12 @@ class MyPostWidget extends StatelessWidget {
                   const Spacer(),
                   IconButton(
                     color: AppColors.accent,
-                    onPressed: () {},
+                    onPressed: () {
+                      deletePost(context);
+                    },
                     splashRadius: 22,
                     icon: const Icon(
-                      Ionicons.bookmark_outline,
+                      Ionicons.trash_bin_outline,
                     ),
                   ),
                 ],
