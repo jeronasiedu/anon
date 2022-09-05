@@ -12,23 +12,12 @@ class MyPosts extends StatefulWidget {
 }
 
 class _MyPostsState extends State<MyPosts> {
-  late String? authorId = '';
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  @override
-  void initState() {
-    final user = auth.currentUser;
-    super.initState();
-    setState(() {
-      authorId = user?.uid;
-    });
-  }
-
   final postReference = FirebaseFirestore.instance
       .collection('posts')
-      .orderBy('time', descending: true)
-      .where(
-        'authorId',
-        isEqualTo: '',
+      .where('authorId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .orderBy(
+        'time',
+        descending: true,
       );
 
   @override
