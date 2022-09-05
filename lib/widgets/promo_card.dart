@@ -1,5 +1,5 @@
+import 'package:dilo/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:kcapp/utils/colors.dart';
 
 class PromoCard extends StatelessWidget {
   const PromoCard({

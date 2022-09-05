@@ -1,6 +1,6 @@
+import 'package:dilo/utils/notification_examples.dart';
+import 'package:dilo/widgets/single_notification.dart';
 import 'package:flutter/material.dart';
-import 'package:kcapp/utils/notification_examples.dart';
-import 'package:kcapp/widgets/single_notification.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({Key? key}) : super(key: key);

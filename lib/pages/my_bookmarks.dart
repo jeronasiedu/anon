@@ -1,5 +1,5 @@
+import 'package:dilo/utils/post_examples.dart';
 import 'package:flutter/material.dart';
-import 'package:kcapp/utils/post_examples.dart';
 
 class MyBookmarks extends StatelessWidget {
   const MyBookmarks({Key? key}) : super(key: key);

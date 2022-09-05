@@ -1,4 +1,4 @@
-import 'package:kcapp/utils/notification_types.dart';
+import 'package:dilo/utils/notification_types.dart';
 
 List notifications = [
   {

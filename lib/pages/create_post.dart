@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dilo/database/models/post_model.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kcapp/database/models/post_model.dart';
 import 'package:lottie/lottie.dart';
 
 class CreatePost extends StatefulWidget {

@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dilo/auth/google_auth.dart';
+import 'package:dilo/pages/my_bookmarks.dart';
+import 'package:dilo/pages/my_posts.dart';
+import 'package:dilo/utils/colors.dart';
+import 'package:dilo/widgets/promo_card.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kcapp/auth/google_auth.dart';
-import 'package:kcapp/pages/my_bookmarks.dart';
-import 'package:kcapp/pages/my_posts.dart';
-import 'package:kcapp/utils/colors.dart';
-import 'package:kcapp/widgets/promo_card.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
       "title": "My Posts",
       "subTitle": "View all your posts",
       "icon": Ionicons.chatbubbles_outline,
-      "screen": MyPosts(),
+      "screen": const MyPosts(),
     },
     {
       "title": "My Bookmarks",

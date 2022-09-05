@@ -1,9 +1,9 @@
 // ignore: depend_on_referenced_packages
+import 'package:dilo/auth/auth_wrapper.dart';
+import 'package:dilo/auth/google_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kcapp/auth/auth_wrapper.dart';
-import 'package:kcapp/auth/google_auth.dart';
 import 'package:provider/provider.dart';
 
 Future main() async {

@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dilo/utils/colors.dart';
+import 'package:dilo/utils/notification_types.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kcapp/utils/colors.dart';
-import 'package:kcapp/utils/notification_types.dart';
 
 class SingleNotification extends StatelessWidget {
   const SingleNotification({

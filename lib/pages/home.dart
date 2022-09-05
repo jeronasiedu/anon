@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dilo/pages/create_post.dart';
+import 'package:dilo/utils/colors.dart';
+import 'package:dilo/widgets/post.dart';
 import 'package:flutter/material.dart';
-import 'package:kcapp/pages/create_post.dart';
-import 'package:kcapp/utils/colors.dart';
-import 'package:kcapp/widgets/post.dart';
 import 'package:lottie/lottie.dart';
 
 class HomePage extends StatefulWidget {

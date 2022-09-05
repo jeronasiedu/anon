@@ -1,4 +1,4 @@
-name: kcapp
+name: dilo
 description: Dilo is a new way to share your thoughts and emotions.
 
 version: 1.0.0+1
@@ -37,6 +37,7 @@ flutter_native_splash:
 
 dev_dependencies:
   flutter_lints: ^2.0.0
+  change_app_package_name: ^1.1.0
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.10.0

@@ -1,9 +1,9 @@
+import 'package:dilo/pages/home.dart';
+import 'package:dilo/pages/notifications.dart';
+import 'package:dilo/pages/profile.dart';
+import 'package:dilo/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:kcapp/pages/home.dart';
-import 'package:kcapp/pages/notifications.dart';
-import 'package:kcapp/pages/profile.dart';
-import 'package:kcapp/utils/colors.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
