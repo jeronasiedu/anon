@@ -19,18 +19,13 @@ class _RootAppState extends State<RootApp> {
     const NotificationsPage(),
     ProfilePage(),
   ];
-  List indicatorColors = [
-    AppColors.orange,
-    AppColors.turquoise,
-    AppColors.blue,
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
           elevation: 40,
-          indicatorColor: indicatorColors[currentIndex],
+          indicatorColor: AppColors.orange,
           iconTheme: MaterialStateProperty.all(
             const IconThemeData(
               size: 20,

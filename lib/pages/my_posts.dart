@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dilo/widgets/empty_page.dart';
 import 'package:dilo/widgets/my_post_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,9 @@ class _MyPostsState extends State<MyPosts> {
         stream: postReference.snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
+            if (snapshot.data?.size == 0) {
+              return const EmptyPage();
+            }
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.all(12),
@@ -48,6 +52,7 @@ class _MyPostsState extends State<MyPosts> {
               },
             );
           }
+
           return Center(
             child: Lottie.asset(
               'assets/loading.json',

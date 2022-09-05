@@ -49,7 +49,7 @@ class ProfilePage extends StatelessWidget {
         ),
         heroTag: 'f1',
         foregroundColor: Colors.white,
-        backgroundColor: AppColors.blue,
+        backgroundColor: AppColors.orange,
       ),
       body: SafeArea(
         child: ListView(
