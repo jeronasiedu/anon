@@ -1,6 +1,6 @@
+import 'package:dilo/auth/google_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kcapp/auth/google_auth.dart';
 import 'package:provider/provider.dart';
 
 class AuthButton extends StatelessWidget {
