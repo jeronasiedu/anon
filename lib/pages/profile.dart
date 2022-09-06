@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dilo/auth/google_auth.dart';
+import 'package:dilo/data/counsellors.dart';
 import 'package:dilo/pages/my_bookmarks.dart';
 import 'package:dilo/pages/my_posts.dart';
 import 'package:dilo/utils/colors.dart';
@@ -98,6 +99,33 @@ class ProfilePage extends StatelessWidget {
                   );
                 },
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 12,
+              ),
+              child: Text(
+                "F I N D   C O U N S E L L O R S",
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+            ),
+            Column(
+              children: List.generate(counsellors.length, (index) {
+                return Column(
+                  children: [
+                    ListTile(
+                      title: Text(counsellors[index]['name']),
+                      subtitle: Text(counsellors[index]['phone']),
+                      trailing: const Icon(
+                        Ionicons.call_outline,
+                      ),
+                    ),
+                    const Divider(
+                      height: 1,
+                    ),
+                  ],
+                );
+              }),
             )
           ],
         ),

@@ -123,7 +123,7 @@ class Post extends StatelessWidget {
                       icon: likes.contains(userId)
                           ? const Icon(
                               Ionicons.heart,
-                              color: AppColors.yellow,
+                              color: AppColors.orange,
                             )
                           : const Icon(
                               Ionicons.heart_outline,

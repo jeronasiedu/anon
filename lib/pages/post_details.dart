@@ -158,13 +158,20 @@ class _PostDetailsState extends State<PostDetails> {
                   ),
                   const Spacer(),
                   IconButton(
-                    color: AppColors.accent,
                     onPressed: () {
                       likePost(context);
                     },
-                    icon: const Icon(
-                      Ionicons.heart_outline,
-                    ),
+                    icon: likes.contains(userId)
+                        ? const Icon(
+                            Ionicons.heart,
+                            color: AppColors.orange,
+                          )
+                        : const Icon(
+                            Ionicons.heart_outline,
+                            color: AppColors.accent,
+                          ),
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
                   ),
                   Text(
                     likes.length.toString(),

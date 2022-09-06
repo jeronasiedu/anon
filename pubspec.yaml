@@ -44,7 +44,8 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: assets/logo/main.png
+  image_path: assets/logo/dilo_black.png
+  background_color: "#FF9908"
 
 flutter:
   uses-material-design: true
