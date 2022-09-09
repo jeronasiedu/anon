@@ -13,7 +13,7 @@ class AuthWrapper extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator.adaptive(),
           );
         } else if (snapshot.hasError) {
           return const Text("Something went wrong");
