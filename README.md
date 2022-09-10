@@ -47,13 +47,22 @@ Feel free to contribute
 
 # Screenshots
 
-![splash screen](readme_images/Screenshot_20220910-211237.png)
-
-![Login Screen](readme_images/Screenshot_20220910-211832.png)shot_20220910-211237.png)
-![Home Screen](readme_images/Screenshot_20220910-211302.png)shot_20220910-211237.png)
-
-![Notifications page](readme_images/Screenshot_20220910-211313.png)
-![Me page](readme_images/Screenshot_20220910-211318.png)
-![Create post page](readme_images/Screenshot_20220910-211357.png)
-![comment on a post page](readme_images/Screenshot_20220910-211511.png)
-![My posts page](readme_images/Screenshot_20220910-211816.png)
+<p align="center">
+  <img alt="Splash Screen" src="readme_images/Screenshot_20220910-211237.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Login Screen" src="readme_images/Screenshot_20220910-211832.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Home Screen" src="readme_images/Screenshot_20220910-211302.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Notifications Screen" src="readme_images/Screenshot_20220910-211313.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Me Screen" src="readme_images/Screenshot_20220910-211313.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Create Post Screen" src="readme_images/Screenshot_20220910-211318.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Comment On a Post Screen" src="readme_images/Screenshot_20220910-211357.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Dark" src="readme_images/Screenshot_20220910-211511.png" width="45%">
+&nbsp; &nbsp; &nbsp; &nbsp;
+  <img alt="Dark" src="readme_images/Screenshot_20220910-211816.png" width="45%">
+</p>
