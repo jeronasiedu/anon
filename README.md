@@ -9,7 +9,7 @@
 
 ## About <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
+Dilo is a latin word which means _say it_. A new way to share and express your emotions. We're making it easy for students to
 
 ## Getting Started <a name = "getting_started"></a>
 
@@ -20,27 +20,27 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them.
 
 ```
-Give examples
+Flutter and Dart SDK are required
 ```
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running.
 
-Say what the step will be
-
 ```
-Give the example
+git clone https://github.com/jeronasiedu/anon.git
 ```
 
-And repeat
-
 ```
-until finished
+cd anon
 ```
 
-End with an example of getting some data out of the system or using it for a little demo.
+```
+flutter pub get
+```
+
+You need to have firebase **sha256** and **sha1** key needed for the the authentication to
 
 ## Usage <a name = "usage"></a>
 
-Add notes about how to use the system.
+Feel free to contribute
