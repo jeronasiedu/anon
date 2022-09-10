@@ -31,7 +31,7 @@ flutter_native_splash:
 
   android_12:
     color: "#FF9908"
-    color_dark: "#A867E9"
+    color_dark: "#FF9908"
     image: assets/logo/dilo_white.png
     image_dark: assets/logo/dilo_white.png
 
@@ -44,8 +44,8 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: assets/logo/dilo_black.png
-  background_color: "#FF9908"
+  image_path: assets/logo/dilo_latest.png
+  adaptive_icon_background: "#FFFFBA00"
 
 flutter:
   uses-material-design: true

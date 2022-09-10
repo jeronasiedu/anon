@@ -44,6 +44,24 @@ class MyPostWidget extends StatelessWidget {
     }
   }
 
+  Future<void> dislikePost(
+    BuildContext context,
+  ) async {
+    try {
+      await FirebaseFirestore.instance.collection('posts').doc(id).update(
+        {
+          'likes': FieldValue.arrayRemove([userId])
+        },
+      );
+    } on FirebaseException {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error liking post'),
+        ),
+      );
+    }
+  }
+
   Future<void> deletePost(BuildContext context) async {
     try {
       await FirebaseFirestore.instance.collection('posts').doc(id).delete();
@@ -129,7 +147,11 @@ class MyPostWidget extends StatelessWidget {
                   const Spacer(),
                   IconButton(
                     onPressed: () {
-                      likePost(context);
+                      if (likes.contains(userId)) {
+                        dislikePost(context);
+                      } else {
+                        likePost(context);
+                      }
                     },
                     icon: likes.contains(userId)
                         ? const Icon(
@@ -153,7 +175,18 @@ class MyPostWidget extends StatelessWidget {
                   IconButton(
                     color: AppColors.accent,
                     onPressed: () {
-                      deletePost(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content:
+                              const Text('Do you want to delete this post?'),
+                          action: SnackBarAction(
+                            label: 'Yes',
+                            onPressed: () {
+                              deletePost(context);
+                            },
+                          ),
+                        ),
+                      );
                     },
                     splashRadius: 22,
                     icon: const Icon(

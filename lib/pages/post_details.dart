@@ -66,8 +66,7 @@ class _PostDetailsState extends State<PostDetails> {
             }
           ])
         },
-      );
-      _commentController.clear();
+      ).then((value) => _commentController.clear());
     } on FirebaseException {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -146,7 +145,7 @@ class _PostDetailsState extends State<PostDetails> {
               ),
               Row(
                 children: [
-                  const Icon(Ionicons.chatbox_ellipses_outline),
+                  const Icon(Ionicons.chatbubble_outline),
                   Padding(
                     padding: const EdgeInsets.only(left: 8),
                     child: Text(
@@ -156,36 +155,11 @@ class _PostDetailsState extends State<PostDetails> {
                       ),
                     ),
                   ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {
-                      likePost(context);
-                    },
-                    icon: likes.contains(userId)
-                        ? const Icon(
-                            Ionicons.heart,
-                            color: AppColors.orange,
-                          )
-                        : const Icon(
-                            Ionicons.heart_outline,
-                            color: AppColors.accent,
-                          ),
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                  ),
-                  Text(
-                    likes.length.toString(),
-                    style: const TextStyle(
-                      color: AppColors.accent,
-                    ),
-                  ),
                 ],
               ),
             ],
           ),
-          const Divider(
-            thickness: 1.8,
-          ),
+          const Divider(),
           StreamBuilder(
             stream: commentReference,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
