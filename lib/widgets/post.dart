@@ -44,6 +44,24 @@ class Post extends StatelessWidget {
     }
   }
 
+  Future<void> dislikePost(
+    BuildContext context,
+  ) async {
+    try {
+      await FirebaseFirestore.instance.collection('posts').doc(id).update(
+        {
+          'likes': FieldValue.arrayRemove([userId])
+        },
+      );
+    } on FirebaseException {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error liking post'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -118,7 +136,11 @@ class Post extends StatelessWidget {
                     const Spacer(),
                     IconButton(
                       onPressed: () {
-                        likePost(context);
+                        if (likes.contains(userId)) {
+                          dislikePost(context);
+                        } else {
+                          likePost(context);
+                        }
                       },
                       icon: likes.contains(userId)
                           ? const Icon(

@@ -11,13 +11,8 @@ class MyBookmarks extends StatefulWidget {
 }
 
 class _MyBookmarksState extends State<MyBookmarks> {
-  final bookmarksReference = FirebaseFirestore.instance
-      .collection('bookmarks')
-      // .where('bookmarkBy', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-      .orderBy(
-        'time',
-        descending: true,
-      );
+  final bookmarksReference = FirebaseFirestore.instance.collection('bookmarks');
+  // .where('bookmarkBy', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
 
   @override
   Widget build(BuildContext context) {
