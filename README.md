@@ -19,7 +19,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them.
 
-```
+```bash
 Flutter and Dart SDK are required
 ```
 
@@ -27,15 +27,15 @@ Flutter and Dart SDK are required
 
 A step by step series of examples that tell you how to get a development env running.
 
-```
+```bash
 git clone https://github.com/jeronasiedu/anon.git
 ```
 
-```
+```bash
 cd anon
 ```
 
-```
+```bash
 flutter pub get
 ```
 
@@ -44,3 +44,16 @@ You need to have firebase **sha256** and **sha1** key needed for the the authent
 ## Usage <a name = "usage"></a>
 
 Feel free to contribute
+
+# Screenshots
+
+![splash screen](readme_images/Screenshot_20220910-211237.png)
+
+![Login Screen](readme_images/Screenshot_20220910-211832.png)shot_20220910-211237.png)
+![Home Screen](readme_images/Screenshot_20220910-211302.png)shot_20220910-211237.png)
+
+![Notifications page](readme_images/Screenshot_20220910-211313.png)
+![Me page](readme_images/Screenshot_20220910-211318.png)
+![Create post page](readme_images/Screenshot_20220910-211357.png)
+![comment on a post page](readme_images/Screenshot_20220910-211511.png)
+![My posts page](readme_images/Screenshot_20220910-211816.png)
