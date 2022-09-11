@@ -119,13 +119,8 @@ class Post extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Ionicons.chatbox_ellipses_outline,
-                      ),
-                      splashColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
+                    const Icon(
+                      Ionicons.chatbubble_outline,
                     ),
                     Text(
                       comments.length.toString(),

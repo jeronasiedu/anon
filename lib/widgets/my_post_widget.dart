@@ -131,12 +131,8 @@ class MyPostWidget extends StatelessWidget {
               ),
               Row(
                 children: [
-                  IconButton(
-                    color: AppColors.accent,
-                    onPressed: () {},
-                    icon: const Icon(
-                      Ionicons.chatbox_ellipses_outline,
-                    ),
+                  const Icon(
+                    Ionicons.chatbubble_outline,
                   ),
                   Text(
                     comments.length.toString(),
